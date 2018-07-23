@@ -1,18 +1,17 @@
-<form #f="ngForm"
-  (ngSubmit)="addTask(); f.reset()"
-  class="form-inline">
+<form #form="ngForm" (ngSubmit)="addTask()"
+  *ngIf="active" class="form-inline">
 
-  <input type="search"
-         required
-         name="task"
-         #name="ngModel"
-         [(ngModel)]="task.name"
+  <input class="form-control mr-sm-2"
+         [class.is-invalid]="form.invalid && form.touched"
          placeholder="Ajouter une tâche..."
-         class="form-control mr-sm-2">
-  <button class="btn"[disabled]="f.invalid" type="submit">
-    <span class="oi oi-plus">
-    </span>
-    Ajouter
+         [(ngModel)]="task.title"
+         #title="ngModel"
+         name="title" required
+         type="search">
+
+  <button class="btn" type="submit"
+    [disabled]="form.invalid">
+    <span class="oi oi-plus"></span> Ajouter
   </button>
 
 </form>

@@ -1,23 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+
 import { AppComponent } from './app.component';
-import { TasksFilterPipe } from '../shared/pipes/tasks-filter.pipe';
+import {TaskStorageService} from './services/storage/task-storage.service';
 import { AddTaskComponent } from './add-task/add-task.component';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { TaskFilterPipe } from './pipes/task-filter.pipe';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TasksFilterPipe,
-    AddTaskComponent
+    AddTaskComponent,
+    TaskFilterPipe
   ],
   imports: [
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    TaskStorageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Task} from '../../shared/models/task';
+import {Task} from '../models/task';
 
 @Component({
   selector: 'app-add-task',
@@ -9,35 +9,49 @@ import {Task} from '../../shared/models/task';
 export class AddTaskComponent implements OnInit {
 
   /**
-   *
+   * Permet d'émettre un évènement lors
+   * de la création d'une tâche.
+   * @type {EventEmitter<any>}
+   */
+  @Output() newTaskEvent = new EventEmitter();
+
+  /**
    * La tâche à créer.
    * @type {Task}
    */
   task: Task = new Task();
 
   /**
-   * permet s'emettre un évenement
-   * lors de la création d'une tâche.
-   * @type {EventEmitter<any>}
+   * Permet de réinitialiser le formulaire
+   * @type {boolean}
    */
+  active = true;
 
-  @Output() newTaskEvent = new EventEmitter();
-
-
-  addTask() {
-    /**
-     * Lorsque l'utilisateur soumet le formulair,
-     * j'émet un évenement avec la nouvelle tâche.
-     */
-    this.newTaskEvent.emit(this.task);
-    /**
-     * dF
-    */
-    this.task = new Task ();
+  constructor() {
   }
-  constructor() { }
 
   ngOnInit() {
   }
 
+  /**
+   * Fonction appelée lors de la
+   * création d'une tâche.
+   * (Submit du Formulaire)
+   */
+  addTask() {
+
+    /**
+     * Lorque l'utilisateur soumet le formulaire
+     * j'émet l'évènement avec la nouvelle tâche.
+     */
+    this.newTaskEvent.emit({task: this.task});
+
+    /** Réinitialisation de la tâche @type {Task} */
+    this.task = new Task();
+
+    /** Réinitialisation du Formulaire @type {boolean} */
+    this.active = false;
+    setTimeout(() => this.active = true, 0);
+
+  }
 }
