@@ -4,6 +4,8 @@
       <a href="#" class="navbar-brand">
         {{title}}
       </a>
+      <div class="collapse navbar-collapse"></div>
+      <app-add-task (newTaskEvent)="newTask($event)" ></app-add-task>
     </nav>
   </header>
   <div class="row m-0">
@@ -38,9 +40,9 @@
         <ul id="done-items" class="list-unstyled">
           <li *ngFor="let task of tasks | tasksFilter: true">
             {{task.name}}
-            <button type="button" class="close">
+            <button type="button" (click)="removeTask(task)" class="close">
             <span aria-hidden="true">
-              &times;
+              x
             </span>
             </button>
           </li>
